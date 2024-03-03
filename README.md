@@ -16,5 +16,6 @@ Repository chứa dataset ảnh và mô hình học sâu
   - Thư mục valid chứa dữ liệu kiểm định
   - Thư mục test chứa dữ liệu đánh giá
   - Thư mục labels chứa tất cả mask/label của các tập dữ liệu tương ứng
+- File csv lưu tên lớp và label tương ứng
 - Mô hình lưu dưới format .py
 - Notebook chạy trên colab, dùng để import dữ liệu, huấn luyện & đánh giá mô hình
