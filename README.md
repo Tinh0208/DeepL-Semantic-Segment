@@ -15,11 +15,7 @@ Repository chứa dataset ảnh và mô hình học sâu
   - Thư mục train chứa dữ liệu huấn luyện
   - Thư mục valid chứa dữ liệu kiểm định
   - Thư mục test chứa dữ liệu đánh giá
-  - Thư mục labels chứa tất cả mask/label của các tập dữ liệu tương ứng, định dạng numpy(.npy)
-- File csv lưu tên lớp và label tương ứng:
-  - 1: Xe hơi
-  - 2: Xe đạp
-  - 3: Xe gắn máy
-  - 4: Người đi bộ
+  - Thư mục labels chứa tất cả mask/label của các tập dữ liệu tương ứng
+- File csv lưu tên lớp và label tương ứng
 - Mô hình lưu dưới format .py
 - Notebook chạy trên colab, dùng để import dữ liệu, huấn luyện & đánh giá mô hình
