@@ -26,10 +26,12 @@ zoo_dataset
 ├── labels 
 │   ├── train
 │   │   ├── image.jpg 
+│   │   ├── ...
 │   ├── valid  
 │   └── test 
 ├── train
 │   ├── mask.npy
+│   ├── ...
 ├── valid 
 └── test 
 ```
