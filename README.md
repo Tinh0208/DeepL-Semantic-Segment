@@ -29,7 +29,7 @@ zoo_dataset
 │   ├── valid  
 │   └── test 
 ├── train
-│   │   ├── mask.npy
+│   ├── mask.npy
 ├── valid 
 └── test 
 ```
