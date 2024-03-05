@@ -21,7 +21,8 @@ Repository chứa dataset ảnh và mô hình học sâu
 - Notebook chạy trên colab, dùng để import dữ liệu, huấn luyện & đánh giá mô hình
 ***
 Cấu trúc dataset:
-'''
+
+'''bash
 data<br>
 |    +--train<br>
 |    |    +--image.jpg<br>
