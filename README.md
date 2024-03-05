@@ -21,15 +21,16 @@ Repository chứa dataset ảnh và mô hình học sâu
 - Notebook chạy trên colab, dùng để import dữ liệu, huấn luyện & đánh giá mô hình
 ***
 Cấu trúc dataset:
-
+```
 zoo_dataset <br>
 ├── labels <br>
-│       ├── train <br>
-│       ├── valid   <br>
-│       └── test <br>
+│    ├── train <br>
+│    ├── valid   <br>
+│    └── test <br>
 ├── train <br>
 ├── valid <br>
 └── test <br>
+```
 
 Số lượng ảnh: 10.000 không bao gồm mask
 Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
