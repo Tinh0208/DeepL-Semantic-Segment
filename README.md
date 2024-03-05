@@ -38,6 +38,8 @@ zoo_dataset
 
 Số lượng ảnh: 10.000 ảnh chỉ chứa đối tượng **thuộc 1 lớp**, không bao gồm mask
 
+Ảnh chứa nhiều đối tượng sẽ cập nhật sau
+
 Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
 
 **Tập train:** 600 ảnh
