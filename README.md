@@ -23,16 +23,13 @@ Repository chứa dataset ảnh và mô hình học sâu
 Cấu trúc dataset:
 
 zoo_dataset
+├── labels                 
+│   ├── train
+│   ├── valid  
+│   └── test
 ├── train
-    ├── image.jpg
 ├── valid
-├── test
-└── labels
-    ├── train
-        ├── mask.npy
-    ├── valid
-    └── test
-    
+└── test
 
 Số lượng ảnh: 10.000 không bao gồm mask
 Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
