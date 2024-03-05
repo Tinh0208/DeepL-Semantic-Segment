@@ -25,12 +25,12 @@ Cấu trúc dataset:
 zoo_dataset 
 ├── labels 
 │   ├── train
-│   │   ├── image.jpg 
+│   │   ├── mask.npy
 │   │   ├── ...
 │   ├── valid  
 │   └── test 
 ├── train
-│   ├── mask.npy
+│   ├── image.jpg
 │   ├── ...
 ├── valid 
 └── test 
