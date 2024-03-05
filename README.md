@@ -24,9 +24,9 @@ Cấu trúc dataset:
 
 zoo_dataset <br>
 ├── labels <br>
-│   ├── train <br>
-│   ├── valid   <br>
-│   └── test <br>
+│       ├── train <br>
+│       ├── valid   <br>
+│       └── test <br>
 ├── train <br>
 ├── valid <br>
 └── test <br>
