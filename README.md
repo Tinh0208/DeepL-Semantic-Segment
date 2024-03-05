@@ -36,11 +36,11 @@ zoo_dataset
 └── test 
 ```
 
-Số lượng ảnh: 10.000 không bao gồm mask
+Số lượng ảnh: **10.000** không bao gồm mask
 
 Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
 
-Tập train: 600 ảnh
+**Tập train:** 600 ảnh
   - Car: 150 ảnh
     - Coco: 75
     - Open V7: 75
@@ -50,7 +50,8 @@ Tập train: 600 ảnh
     - Coco: 75
     - Open V7: 75
   - Person / Pedestrian: 150 ảnh
-Tập validation: 200 ảnh
+
+**Tập validation:** 200 ảnh
   - Car: 50 ảnh
     - Coco: 25
     - Open V7: 25
@@ -60,7 +61,8 @@ Tập validation: 200 ảnh
     - Coco: 25
     - Open V7: 25
   - Person / Pedestrian: 50 ảnh
-Tập test: 200 ảnh
+
+**Tập test:** 200 ảnh
   - Car: 50 ảnh
     - Coco: 25
     - Open V7: 25
