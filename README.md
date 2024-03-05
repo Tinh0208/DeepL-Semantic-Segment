@@ -37,7 +37,9 @@ zoo_dataset
 ```
 
 Số lượng ảnh: 10.000 không bao gồm mask
+
 Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
+
 Tập train: 600 ảnh
   - Car: 150 ảnh
     - Coco: 75
