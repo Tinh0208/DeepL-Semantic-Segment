@@ -36,7 +36,7 @@ zoo_dataset
 └── test 
 ```
 
-Số lượng ảnh: **10.000** ảnh chỉ chứa đối tượng thuộc 1 lớp, không bao gồm mask
+Số lượng ảnh: 10.000 ảnh chỉ chứa đối tượng **thuộc 1 lớp**, không bao gồm mask
 
 Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
 
