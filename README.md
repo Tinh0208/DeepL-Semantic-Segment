@@ -36,11 +36,11 @@ zoo_dataset
 └── test 
 ```
 
-Số lượng ảnh: 1.000 ảnh chỉ chứa đối tượng **thuộc 1 lớp**, không bao gồm mask
+Thư mục zoo dataset:
 
-Ảnh chứa nhiều đối tượng sẽ cập nhật sau
-
-Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
+- Số lượng ảnh: 1.000 ảnh chỉ chứa đối tượng **thuộc 1 lớp**, không bao gồm mask
+- Ảnh chứa nhiều đối tượng sẽ cập nhật sau
+- Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
 
 **Tập train:** 600 ảnh
   - Car: 150 ảnh
@@ -52,6 +52,8 @@ Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
     - Coco: 75
     - Open V7: 75
   - Person / Pedestrian: 150 ảnh
+    - Kaggle: 146
+    - Thủ công: 4
 
 **Tập validation:** 200 ảnh
   - Car: 50 ảnh
@@ -63,6 +65,8 @@ Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
     - Coco: 25
     - Open V7: 25
   - Person / Pedestrian: 50 ảnh
+    - Kaggle: 24
+    - Thủ công: 26
 
 **Tập test:** 200 ảnh
   - Car: 50 ảnh
@@ -74,4 +78,5 @@ Nguồn thu thập: Coco-2017, Open Image v7, Cityscapes, Thủ công
     - Coco: 25
     - Open V7: 25
   - Person / Pedestrian: 50 ảnh
+    Thủ công: 50
 
