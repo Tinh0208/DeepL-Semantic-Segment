@@ -30,7 +30,7 @@ class DataLoader():
         'test':os.path.join(label_base,'test')
     }
 
-  def load(self, purpose:str, image_shape:tuple, shuffle = False, seed = None):
+  def load(self, purpose:str, image_shape:tuple, shuffle = False, seed = None, anti_aliasing = False):
     image_list = []
     mask_list = []
 
@@ -47,12 +47,12 @@ class DataLoader():
     for path in img_path:
       img = load_img(path,color_mode='rgb')
       img = img_to_array(img)
-      img = st.resize(img, image_shape,order=0, preserve_range=True, anti_aliasing=False)
+      img = st.resize(img, image_shape,order=0, preserve_range=True, anti_aliasing=anti_aliasing)
       image_list.append(img)
 
     for path in mask_path:
       mask = np.load(path)
-      mask = st.resize(mask, image_shape,order=0, preserve_range=True, anti_aliasing=False)
+      mask = st.resize(mask, image_shape,order=0, preserve_range=True, anti_aliasing=anti_aliasing)
       mask_list.append(mask)
 
     print(img_path)
@@ -64,7 +64,7 @@ def preprocessing(images, labels, n_classes):
   # Thêm chiều cho nhãn: (224,224,3) => (224,224,3,1)
   labels = np.expand_dims(labels, axis=-1)
   labels = np.asarray(labels, dtype=np.float32)
-  print(labels.shape)
+  # print(labels.shape)
 
   # Chuẩn hóa ảnh về miền [0,1]
   images = np.asarray(images, dtype=np.float32)
