@@ -42,23 +42,26 @@ def decoder_block(input, skip_features: list, num_filters, block_name:str, dropo
 
   return d
 
-def Unet(input_shape, output_classes = 1, dropout_rate = None):
+def Unet(input_shape, output_classes = 1, dropout_rate = None, base_filter=64):
+  bf = base_filter
+  filters = [bf, bf*2, bf*4, bf*8, bf*16]
+
   inputs= Input(shape = input_shape, name='Main Input')
 
   # encoder
-  s1, p1 = encoder_block(inputs, 64, 'En_1', dropout_rate)
-  s2, p2 = encoder_block(p1, 128, 'En_2', dropout_rate)
-  s3, p3 = encoder_block(p2, 256, 'En_3', dropout_rate)
-  s4, p4 = encoder_block(p3, 512, 'En_4', dropout_rate)
+  s1, p1 = encoder_block(inputs, filters[0], 'En_1', dropout_rate)
+  s2, p2 = encoder_block(p1, filters[1], 'En_2', dropout_rate)
+  s3, p3 = encoder_block(p2, filters[2], 'En_3', dropout_rate)
+  s4, p4 = encoder_block(p3, filters[3], 'En_4', dropout_rate)
 
   # bridge
-  b1 = conv_block(p4, 1024, 'Bottleneck')
+  b1 = conv_block(p4, filters[4], 'Bottleneck')
 
   # decoder
-  d1 = decoder_block(b1, [s4], 512, 'De_1', dropout_rate)
-  d2 = decoder_block(d1, [s3], 256, 'De_2', dropout_rate)
-  d3 = decoder_block(d2, [s2], 128, 'De_3', dropout_rate)
-  d4 = decoder_block(d3, [s1], 64, 'De_4', dropout_rate)
+  d1 = decoder_block(b1, [s4], filters[3], 'De_1', dropout_rate)
+  d2 = decoder_block(d1, [s3], filters[2], 'De_2', dropout_rate)
+  d3 = decoder_block(d2, [s2], filters[1], 'De_3', dropout_rate)
+  d4 = decoder_block(d3, [s1], filters[0], 'De_4', dropout_rate)
 
   outputs = Conv2D(output_classes, 1, padding='same', activation='softmax')(d4)
 
