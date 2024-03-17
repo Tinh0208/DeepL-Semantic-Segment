@@ -1,5 +1,6 @@
-,label,class
-0,1,car
-1,2,bicycle
-2,3,motorcycle
-3,4,pedestrian
+label,class
+0,background
+1,car
+2,bicycle
+3,motorcycle
+4,pedestrian
