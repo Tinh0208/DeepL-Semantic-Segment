@@ -13,7 +13,7 @@ import numpy as np
 import skimage.transform as st
 import random
 from PIL import Image
-from tensorflow.keras.utils import load_img, img_to_array
+from tensorflow.keras.utils import load_img, img_to_array, to_categorical
 
 class DataLoader():
   def __init__(self, dataset_path:str):
@@ -57,15 +57,24 @@ class DataLoader():
 
     print(img_path)
     print(mask_path)
-    print(len(image_list))
 
     return np.array(image_list), np.array(mask_list)
 
-def preprocessing(images, labels):
+def preprocessing(images, labels, n_classes):
+  # Thêm chiều cho nhãn: (224,224,3) => (224,224,3,1)
   labels = np.expand_dims(labels, axis=-1)
+  labels = np.asarray(labels, dtype=np.float32)
+  print(labels.shape)
 
-  images = images.astype(np.float32)
+  # Chuẩn hóa ảnh về miền [0,1]
+  images = np.asarray(images, dtype=np.float32)
   images /= 255
+
+  # Chuyển nhãn thành onehot
+  temp = to_categorical(labels, num_classes = n_classes, dtype = 'float32')
+  labels = temp.reshape((labels.shape[0], labels.shape[1],
+                                  labels.shape[2], n_classes))
+  print('Label data shape is: {}'.format(labels.shape))
 
   return images, labels
 
