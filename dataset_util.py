@@ -71,7 +71,7 @@ def preprocessing(images, labels, n_classes):
   images /= 255
 
   # Chuyển nhãn thành onehot
-  temp = to_categorical(labels, num_classes = n_classes, dtype = 'float32')
+  temp = to_categorical(labels, num_classes = n_classes)
   labels = temp.reshape((labels.shape[0], labels.shape[1],
                                   labels.shape[2], n_classes))
   print('Label data shape is: {}'.format(labels.shape))
