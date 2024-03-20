@@ -55,8 +55,8 @@ class DataLoader():
       mask = st.resize(mask, image_shape,order=0, preserve_range=True, anti_aliasing=anti_aliasing)
       mask_list.append(mask)
 
-    print(img_path)
-    print(mask_path)
+    # print(img_path)
+    # print(mask_path)
 
     return np.array(image_list), np.array(mask_list)
 
