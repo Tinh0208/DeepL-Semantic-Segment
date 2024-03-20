@@ -1,0 +1,2 @@
+f/kaggle/working/DeepL-Semantic-Segment/trained_models/unet.best_model.keras filter=lfs diff=lfs merge=lfs -text
+trained_models/unet.best_model.keras filter=lfs diff=lfs merge=lfs -text
