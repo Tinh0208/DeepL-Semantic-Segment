@@ -34,7 +34,7 @@ def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
 
 
 def decoder_block(input, skip_features: list, num_filters, block_name:str, dropout_rate:float = None):
-  d = Conv2DTranspose(num_filters, (2,2), strides=2, padding='same', name=block_name+'_conv')(input)
+  d = Conv2DTranspose(num_filters, (2,2), strides=2, padding='same', name=block_name+'_upconv')(input)
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
   if dropout_rate:
     d = Dropout(dropout_rate)(d)
@@ -63,7 +63,7 @@ def Unet(input_shape, output_classes = 1, dropout_rate = None, base_filter=64):
   d3 = decoder_block(d2, [s2], filters[1], 'De_3', dropout_rate)
   d4 = decoder_block(d3, [s1], filters[0], 'De_4', dropout_rate)
 
-  outputs = Conv2D(output_classes, 1, padding='same', activation='softmax')(d4)
+  outputs = Conv2D(output_classes, 1, padding='same', activation='softmax',name='Output')(d4)
 
   model = Model(inputs, outputs, name='U-Net')
   return model
