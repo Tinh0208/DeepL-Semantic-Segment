@@ -52,7 +52,7 @@ class DataLoader():
 
     for path in mask_path:
       mask = np.load(path)
-      mask = st.resize(mask, image_shape,order=0, preserve_range=True, anti_aliasing=anti_aliasing)
+      mask = st.resize(mask, image_shape,order=0, preserve_range=True, anti_aliasing=False)
       mask_list.append(mask)
 
     # print(img_path)
