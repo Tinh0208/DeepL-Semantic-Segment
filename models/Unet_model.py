@@ -36,9 +36,10 @@ def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
 def decoder_block(input, skip_features: list, num_filters, block_name:str, dropout_rate:float = None):
   d = Conv2DTranspose(num_filters, (3,3), strides=2, padding='same', name=block_name+'_upconv')(input)
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
+  d = conv_block(d, num_filters, block_name)
   if dropout_rate:
     d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
-  d = conv_block(d, num_filters, block_name)
+
 
   return d
 
