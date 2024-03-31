@@ -18,11 +18,14 @@ def conv_block(input, num_filters, block_name, dropout_rate:float=None):
   x = Activation('relu', name=block_name+'_act1')(x)
 
   if dropout_rate:
-    x = Dropout(dropout_rate, name=block_name+'_dropout')(x)
+    x = Dropout(dropout_rate, name=block_name+'_drop1')(x)
 
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
   x = BatchNormalization(name=block_name+'_norm2')(x)
   x = Activation('relu', name=block_name+'_act2')(x)
+
+  if dropout_rate:
+    x = Dropout(dropout_rate, name=block_name+'_drop2')(x)
 
   return x
 
