@@ -12,15 +12,17 @@ from keras.models import Model
 from keras.layers import Input, Conv2D, MaxPool2D, UpSampling2D, concatenate, Conv2DTranspose, BatchNormalization, Dropout
 from keras.layers import Activation, Concatenate
 
-def conv_block(input, num_filters, block_name, dropout_rate:float=None):
+def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rate:float=None):
   x = Conv2D(num_filters, 3, padding='same',name=block_name+'_conv1')(input)
-  x = BatchNormalization(name=block_name+'_norm1')(x)
+  if batch_norm:
+    x = BatchNormalization(name=block_name+'_norm1')(x)
   x = Activation('relu', name=block_name+'_act1')(x)
   # if dropout_rate:
   #   x = Dropout(dropout_rate, name=block_name+'_drop1')(x)
 
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
-  x = BatchNormalization(name=block_name+'_norm2')(x)
+  if batch_norm:
+    x = BatchNormalization(name=block_name+'_norm2')(x)
   x = Activation('relu', name=block_name+'_act2')(x)
   if dropout_rate:
     x = Dropout(dropout_rate, name=block_name+'_dropout')(x)
@@ -28,7 +30,7 @@ def conv_block(input, num_filters, block_name, dropout_rate:float=None):
   return x
 
 
-def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
+def encoder_block(input, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
   s = conv_block(input, num_filters, block_name, dropout_rate)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
   # if dropout_rate:
@@ -37,7 +39,7 @@ def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
   return s, p
 
 
-def decoder_block(input, skip_features: list, num_filters, block_name:str, dropout_rate:float = None):
+def decoder_block(input, skip_features: list, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
   d = Conv2DTranspose(num_filters, (3,3), strides=2, padding='same', name=block_name+'_upconv')(input)
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
   # if dropout_rate:
@@ -46,7 +48,7 @@ def decoder_block(input, skip_features: list, num_filters, block_name:str, dropo
   
   return d
 
-def Unet(input_shape, output_classes = 1, dropout_rate = None, base_filter=64):
+def Unet(input_shape, output_classes = 1,base_filter=64, batch_norm = True, dropout_rate = None):
   bf = base_filter
   filters = [bf, bf*2, bf*4, bf*8, bf*16]
 
