@@ -31,10 +31,10 @@ def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rat
 
 
 def encoder_block(input, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
-  s = conv_block(input, num_filters, block_name, batch_norm)
+  s = conv_block(input, num_filters, block_name, batch_norm, dropout_rate)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
-  if dropout_rate:
-    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
+  # if dropout_rate:
+  #   p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
@@ -44,7 +44,7 @@ def decoder_block(input, skip_features: list, num_filters, block_name:str, batch
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
   # if dropout_rate:
   #   d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
-  d = conv_block(d, num_filters, block_name, batch_norm)
+  d = conv_block(d, num_filters, block_name, batch_norm, dropout_rate)
   
   return d
 
@@ -55,19 +55,19 @@ def Unet(input_shape, output_classes = 1,base_filter=64, batch_norm = True, drop
   inputs= Input(shape = input_shape, name='Main Input')
 
   # encoder
-  s1, p1 = encoder_block(inputs, filters[0], 'En_1', batch_norm, dropout_rate)
-  s2, p2 = encoder_block(p1, filters[1], 'En_2', batch_norm, dropout_rate)
-  s3, p3 = encoder_block(p2, filters[2], 'En_3', batch_norm, dropout_rate)
-  s4, p4 = encoder_block(p3, filters[3], 'En_4', batch_norm, dropout_rate)
+  s1, p1 = encoder_block(inputs, filters[0], 'En_1', batch_norm, 0.1)
+  s2, p2 = encoder_block(p1, filters[1], 'En_2', batch_norm, 0.1)
+  s3, p3 = encoder_block(p2, filters[2], 'En_3', batch_norm, 0.2)
+  s4, p4 = encoder_block(p3, filters[3], 'En_4', batch_norm, 0.2)
 
   # bridge
-  b1 = conv_block(p4, filters[4], 'Bottleneck', batch_norm)
+  b1 = conv_block(p4, filters[4], 'Bottleneck', batch_norm, 0.3)
 
   # decoder
-  d1 = decoder_block(b1, [s4], filters[3], 'De_1', batch_norm, dropout_rate)
-  d2 = decoder_block(d1, [s3], filters[2], 'De_2', batch_norm, dropout_rate)
-  d3 = decoder_block(d2, [s2], filters[1], 'De_3', batch_norm, dropout_rate)
-  d4 = decoder_block(d3, [s1], filters[0], 'De_4', batch_norm, dropout_rate)
+  d1 = decoder_block(b1, [s4], filters[3], 'De_1', batch_norm, 0.2)
+  d2 = decoder_block(d1, [s3], filters[2], 'De_2', batch_norm, 0.2)
+  d3 = decoder_block(d2, [s2], filters[1], 'De_3', batch_norm, 0.1)
+  d4 = decoder_block(d3, [s1], filters[0], 'De_4', batch_norm, 0.1)
 
   outputs = Conv2D(output_classes, 1, padding='same', activation='softmax',name='Output')(d4)
 
