@@ -12,10 +12,13 @@ from keras.models import Model
 from keras.layers import Input, Conv2D, MaxPool2D, UpSampling2D, concatenate, Conv2DTranspose, BatchNormalization, Dropout
 from keras.layers import Activation, Concatenate
 
-def conv_block(input, num_filters, block_name):
+def conv_block(input, num_filters, block_name, dropout_rate:float=None):
   x = Conv2D(num_filters, 3, padding='same',name=block_name+'_conv1')(input)
   x = BatchNormalization(name=block_name+'_norm1')(x)
   x = Activation('relu', name=block_name+'_act1')(x)
+
+  if dropout_rate:
+    x = Dropout(dropout_rate, name=block_name+'_dropout')(x)
 
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
   x = BatchNormalization(name=block_name+'_norm2')(x)
@@ -25,10 +28,10 @@ def conv_block(input, num_filters, block_name):
 
 
 def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
-  s = conv_block(input, num_filters, block_name)
+  s = conv_block(input, num_filters, block_name, dropout_rate)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
-  if dropout_rate:
-    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
+  # if dropout_rate:
+    # p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
@@ -36,9 +39,9 @@ def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
 def decoder_block(input, skip_features: list, num_filters, block_name:str, dropout_rate:float = None):
   d = Conv2DTranspose(num_filters, (3,3), strides=2, padding='same', name=block_name+'_upconv')(input)
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
-  d = conv_block(d, num_filters, block_name)
-  if dropout_rate:
-    d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
+  d = conv_block(d, num_filters, block_name, dropout_rate)
+  # if dropout_rate:
+  #   d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
 
 
   return d
