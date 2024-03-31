@@ -31,10 +31,10 @@ def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rat
 
 
 def encoder_block(input, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
-  s = conv_block(input, num_filters, block_name, batch_norm, dropout_rate)
+  s = conv_block(input, num_filters, block_name, batch_norm)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
-  # if dropout_rate:
-  #   p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
+  if dropout_rate:
+    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
@@ -44,7 +44,7 @@ def decoder_block(input, skip_features: list, num_filters, block_name:str, batch
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
   # if dropout_rate:
   #   d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
-  d = conv_block(d, num_filters, block_name, batch_norm, dropout_rate)
+  d = conv_block(d, num_filters, block_name, batch_norm)
   
   return d
 
@@ -61,7 +61,7 @@ def Unet(input_shape, output_classes = 1,base_filter=64, batch_norm = True, drop
   s4, p4 = encoder_block(p3, filters[3], 'En_4', batch_norm, dropout_rate)
 
   # bridge
-  b1 = conv_block(p4, filters[4], 'Bottleneck', dropout_rate)
+  b1 = conv_block(p4, filters[4], 'Bottleneck', batch_norm, dropout_rate)
 
   # decoder
   d1 = decoder_block(b1, [s4], filters[3], 'De_1', batch_norm, dropout_rate)
