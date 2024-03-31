@@ -22,8 +22,8 @@ def conv_block(input, num_filters, block_name, dropout_rate:float=None):
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
   x = BatchNormalization(name=block_name+'_norm2')(x)
   x = Activation('relu', name=block_name+'_act2')(x)
-  # if dropout_rate:
-  #   x = Dropout(dropout_rate, name=block_name+'_dropout')(x)
+  if dropout_rate:
+    x = Dropout(dropout_rate, name=block_name+'_dropout')(x)
 
   return x
 
@@ -31,8 +31,8 @@ def conv_block(input, num_filters, block_name, dropout_rate:float=None):
 def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
   s = conv_block(input, num_filters, block_name, dropout_rate)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
-  if dropout_rate:
-    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
+  # if dropout_rate:
+  #   p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
