@@ -28,7 +28,7 @@ def encoder_block(input, num_filters, block_name:str,dropout_rate:float = None):
   s = conv_block(input, num_filters, block_name)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
   if dropout_rate:
-    p = Dropout(dropout_rate)(p)
+    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
@@ -37,7 +37,7 @@ def decoder_block(input, skip_features: list, num_filters, block_name:str, dropo
   d = Conv2DTranspose(num_filters, (3,3), strides=2, padding='same', name=block_name+'_upconv')(input)
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
   if dropout_rate:
-    d = Dropout(dropout_rate)(d)
+    d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
   d = conv_block(d, num_filters, block_name)
 
   return d
