@@ -61,7 +61,7 @@ def Unet(input_shape, output_classes = 1,base_filter=64, batch_norm = True, drop
   s4, p4 = encoder_block(p3, filters[3], 'En_4', batch_norm, dropout_rate)
 
   # bridge
-  b1 = conv_block(p4, filters[4], 'Bottleneck', batch_norm, dropout_rate)
+  b1 = conv_block(p4, filters[4], 'Bottleneck', batch_norm)
 
   # decoder
   d1 = decoder_block(b1, [s4], filters[3], 'De_1', batch_norm, dropout_rate)
