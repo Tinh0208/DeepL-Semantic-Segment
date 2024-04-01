@@ -23,7 +23,7 @@ def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rat
 
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
   if batch_norm:
-    x = BatchNormalization(name=block_name+'_norm2', training=False)(x)
+    x = BatchNormalization(name=block_name+'_norm2', trainable=False)(x)
   x = Activation('relu', name=block_name+'_act2')(x)
   if dropout_rate:
     x = Dropout(dropout_rate, name=block_name+'_drop2')(x)
