@@ -15,7 +15,7 @@ from keras.layers import Activation, Concatenate
 def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rate:float=None):
   x = Conv2D(num_filters, 3, padding='same',name=block_name+'_conv1')(input)
   if batch_norm:
-    x = BatchNormalization(name=block_name+'_norm1', training=False)(x)
+    x = BatchNormalization(name=block_name+'_norm1', trainable=False)(x)
   x = Activation('relu', name=block_name+'_act1')(x)
 
   if dropout_rate:
