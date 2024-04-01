@@ -18,24 +18,24 @@ def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rat
     x = BatchNormalization(name=block_name+'_norm1')(x)
   x = Activation('relu', name=block_name+'_act1')(x)
 
-  if dropout_rate:
-    x = Dropout(dropout_rate, name=block_name+'_drop1')(x)
+  # if dropout_rate:
+  #   x = Dropout(dropout_rate, name=block_name+'_drop1')(x)
 
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
   if batch_norm:
     x = BatchNormalization(name=block_name+'_norm2')(x)
   x = Activation('relu', name=block_name+'_act2')(x)
-  if dropout_rate:
-    x = Dropout(dropout_rate, name=block_name+'_drop2')(x)
+  # if dropout_rate:
+  #   x = Dropout(dropout_rate, name=block_name+'_drop2')(x)
 
   return x
 
 
 def encoder_block(input, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
-  s = conv_block(input, num_filters, block_name, batch_norm, dropout_rate)
+  s = conv_block(input, num_filters, block_name, batch_norm)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
-  # if dropout_rate:
-  #   p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
+  if dropout_rate:
+    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
@@ -43,9 +43,9 @@ def encoder_block(input, num_filters, block_name:str, batch_norm=True, dropout_r
 def decoder_block(input, skip_features: list, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
   d = Conv2DTranspose(num_filters, (3,3), strides=2, padding='same', name=block_name+'_upconv')(input)
   d = Concatenate(name=block_name+'_cat')([d, *skip_features])
-  # if dropout_rate:
-  #   d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
-  d = conv_block(d, num_filters, block_name, batch_norm, dropout_rate)
+  if dropout_rate:
+    d = Dropout(dropout_rate, name=block_name+'_dropout')(d)
+  d = conv_block(d, num_filters, block_name, batch_norm)
   
   return d
 
