@@ -52,7 +52,7 @@ def decoder_block(input, skip_features: list, num_filters, block_name:str, batch
 def Unet(input_shape, output_classes = 1,base_filter=64, batch_norm = True, dropout_rate = None):
   bf = base_filter
   filters = [bf, bf*2, bf*4, bf*8, bf*16]
-  dropouts = [0.1,0.1,0.2,0.2,0.3]
+  dropouts = []
   if not dropout_rate is list:
     dropouts = [dropout_rate for i in range(5)]
   inputs= Input(shape = input_shape, name='Main Input')
