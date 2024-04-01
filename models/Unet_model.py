@@ -55,6 +55,8 @@ def Unet(input_shape, output_classes = 1,base_filter=64, batch_norm = True, drop
   dropouts = []
   if not dropout_rate is list:
     dropouts = [dropout_rate for i in range(5)]
+  else:
+    dropouts = dropout_rate
   inputs= Input(shape = input_shape, name='Main Input')
 
   # encoder
