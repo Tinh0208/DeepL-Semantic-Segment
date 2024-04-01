@@ -15,7 +15,7 @@ from keras.layers import Activation, Concatenate
 def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rate:float=None):
   x = Conv2D(num_filters, 3, padding='same',name=block_name+'_conv1')(input)
   if batch_norm:
-    x = BatchNormalization(name=block_name+'_norm1', trainable=False)(x)
+    x = BatchNormalization(name=block_name+'_norm1')(x)
   x = Activation('relu', name=block_name+'_act1')(x)
 
   if dropout_rate:
@@ -23,7 +23,7 @@ def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rat
 
   x = Conv2D(num_filters, 3,padding='same',name=block_name+'_conv2')(x)
   if batch_norm:
-    x = BatchNormalization(name=block_name+'_norm2', trainable=False)(x)
+    x = BatchNormalization(name=block_name+'_norm2')(x)
   x = Activation('relu', name=block_name+'_act2')(x)
   if dropout_rate:
     x = Dropout(dropout_rate, name=block_name+'_drop2')(x)
@@ -32,10 +32,10 @@ def conv_block(input, num_filters, block_name, batch_norm:bool=True, dropout_rat
 
 
 def encoder_block(input, num_filters, block_name:str, batch_norm=True, dropout_rate:float = None):
-  s = conv_block(input, num_filters, block_name, batch_norm)
+  s = conv_block(input, num_filters, block_name, batch_norm, dropout_rate)
   p = MaxPool2D((2,2),name=block_name+'_pool')(s)
-  if dropout_rate:
-    p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
+  # if dropout_rate:
+  #   p = Dropout(dropout_rate, name=block_name+'_dropout')(p)
 
   return s, p
 
